@@ -1,11 +1,7 @@
 from flask import Flask, request, make_response, Response
-from plivo.rest import phlo_client
-from twilio.twiml.messaging_response import Body
-import plivo
 from plivo import plivoxml
-from stockDir.dictionary import StockDictionary
-from stockDir.stock import Stock
-from stockDir.env import Config as c
+from dictionary import StockDictionary
+from stock import Stock
 
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
@@ -15,33 +11,31 @@ app = Flask(__name__)
 def print_stocks():
     string = ""
     for stock in stockObjects:
-        string += str(stock.acronym + f" {stock.price}\n")
+        string += str(stock.acronym.upper() + f" {stock.price}\n")
     if len(string) < 4:
         string = "You have not added any stocks. Text /add to append."
     return string
 
 
 def stock_price(ack):
+    ack.lower()
     if ack == "ERROR":
         string = "Error"
     elif ack != "ERROR":
         for stock in stockObjects:
-            if stock.acronym.lower() == ack.lower():
-                string = f"{stock.acronym} {stock.price}\nFloor: {stock.floor}\nCeiling: {stock.ceiling})"
-            else:
-                string = "You must enter a stock you have added to /mystocks"
+            stocks = [f"{stock.acronym.upper()} {stock.float_price}"
+                      f"\nFloor:   {stock.floor}"
+                      f"\nCeiling: {stock.ceiling}"]
+            for stock in range(len(stocks)):
+                if ack.upper() in stocks[stock]:
+                    return stocks[stock]
     else:
-        string = "You broke the matrix. Try again."
-
-    return string
+        return "You broke the matrix. Try again."
 
 
-def get_stock_user(details):
-    details.rsplit(" ", 2)
-    if len(details[0]) > 7:
-        return "ERROR"
-    else:
-        return details[1]
+def get_stock_user(detail):
+    details = detail.split(' ', 2)
+    return details[1]
 
 
 # Text reply system
@@ -76,20 +70,18 @@ def inbound_sms():
     elif response == "/mystocks":
         resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
     elif "/details" in response:
-        resp.add(plivoxml.MessageElement(stock_price(get_stock_user(response)), src=to_number, dst=from_number))
+        resp.add(plivoxml.MessageElement(str(stock_price(get_stock_user(response))), src=to_number, dst=from_number))
     elif response == "/add":
         resp.add(plivoxml.MessageElement("Please reply with the stock acronym you would like to add followed by its floor/ceiling.\n\nEx: NOK-1.00-4.50", src=to_number, dst=from_number))
-    elif stockAck and stockFloor and stockCeiling and stockAck and stockFloor and stockCeiling and stockAck in StockDictionary.NASDAQ:  # This is really painful I know there's a simpler way ill do it l8tr
-        # try:
-        #     stockFloor = float(stockFloor)
-        #     stockCeiling = float(stockCeiling)
-        # except ValueError or TypeError or AttributeError as e:
-        #     resp.message(e)
-        # if stockFloor and stockCeiling is float:
-        stockObjects.append(Stock("", "", f"{stockAck}", "", 0.0, stockFloor, stockCeiling))
-        # elif stockFloor and stockCeiling is not float:
-        #     resp.message("Your floor and ceiling must be numbers.")
-        resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
+    elif stockAck in StockDictionary.NASDAQ or StockDictionary.COLE and stockFloor and stockCeiling:
+        try:
+            float(stockFloor)
+            float(stockCeiling)
+            stockObjects.append(Stock("", "", f"{stockAck}", "", 0.0, stockFloor, stockCeiling))
+            resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
+        except ValueError or Exception as e:
+            print(str(e))
+            resp.add(plivoxml.MessageElement("You failed to enter a stock correctly. Type /add to try again.", src=to_number, dst=from_number))
     elif stockAck and not stockFloor or stockCeiling:
         resp.add(plivoxml.MessageElement("You failed to enter a stock correctly. Type /add to try again.", src=to_number, dst=from_number))
     else:

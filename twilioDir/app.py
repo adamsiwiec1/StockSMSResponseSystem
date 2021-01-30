@@ -1,9 +1,8 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import Body
 from twilio import twiml
-from stockDir.dictionary import StockDictionary
-from stockDir.stock import Stock
-from stockDir.env import Config as c
+from dictionary import StockDictionary
+from stock import Stock
 
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]

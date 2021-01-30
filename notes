@@ -1,0 +1,39 @@
+
+Linux command for all NASDAQ stocks in json format
+
+echo "[\"$(echo -n "$(echo -en "$(curl -s --compressed 'ftp://ftp.nasdaqtrader.com/SymbolDirectory/nasdaqlisted.txt' | tail -n+2 | head -n-1 | perl -pe 's/ //g' | tr '|' ' ' | awk '{printf $1" "} {print $4}')\n$(curl -s --compressed 'ftp://ftp.nasdaqtrader.com/SymbolDirectory/otherlisted.txt' | tail -n+2 | head -n-1 | perl -pe 's/ //g' | tr '|' ' ' | awk '{printf $1" "} {print $7}')" | grep -v 'Y$' | awk '{print $1}' | grep -v '[^a-zA-Z]' | sort)" | perl -pe 's/\n/","/g')\"]"
+
+
+USING NGROK
+
+Install:
+pip install flask requests python-dotenv pyngrok
+
+Purpose: To forward sms replies from twilio to our local server, and perform certain actions
+depending on what the user responds with.
+
+instructions off this article:
+https://www.twilio.com/blog/nasa-satellite-imagery-sms-bot-python-flask-twilio
+and this video
+https://www.youtube.com/watch?v=cZeCz_QOoXw
+
+
+Simple server start for flask:
+1. Navigate to project directory then:
+venv\Scripts\activate
+
+**This activates env
+
+2. Run there in the directory after the cmd above:
+set FLASK_ENV=development
+flask run
+
+3. Open a second terminal window and run the following. (has to be in location w/ ngrok, for ex your project)
+
+Activate venv:
+venv\Scripts\activate
+
+Start ngrok:
+ngrok http 5000
+
+4. Set up your Ngrok redirct in Twilio or whatever you api you are using.
