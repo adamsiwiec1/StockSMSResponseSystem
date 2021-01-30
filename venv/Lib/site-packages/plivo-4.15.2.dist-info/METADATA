@@ -1,0 +1,37 @@
+Metadata-Version: 2.0
+Name: plivo
+Version: 4.15.2
+Summary: A Python SDK to make voice calls & send SMS using Plivo and to generate Plivo XML
+Home-page: https://github.com/plivo/plivo-python
+Author: The Plivo SDKs Team
+Author-email: sdks@plivo.com
+License: MIT
+Keywords: plivo,plivo xml,voice calls,sms
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Communications :: Telephony
+Requires-Dist: requests (<3,>=2)
+Requires-Dist: six (<2,>=1)
+Requires-Dist: decorator (<5,>=4)
+Requires-Dist: lxml (<5,>=3)
+
+The Plivo Python SDK makes it simpler to integrate communications into your
+Python applications using the Plivo REST API. Using the SDK, you will be able
+to make voice calls, send SMS and generate Plivo XML to control your call flows.
+
+See https://github.com/plivo/plivo-python for more information.
+
+
