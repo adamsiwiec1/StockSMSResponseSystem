@@ -4,5 +4,5 @@
 
 class Config:
 
-    ACCOUNT_SID = "MAZJZLYTFIMDDHMJZMYZ"
-    AUTH_TOKEN = 'NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx'
+    ACCOUNT_SID = "xxx"
+    AUTH_TOKEN = 'xxx'
