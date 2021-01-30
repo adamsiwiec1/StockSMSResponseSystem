@@ -2,11 +2,13 @@ from flask import Flask, request, make_response, Response
 from plivo import plivoxml
 from dictionary import StockDictionary
 from stock import Stock
+from scrape import StockScraper
 
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
 app = Flask(__name__)
 
+stockScraper = StockScraper()
 
 def print_stocks():
     string = ""
@@ -64,8 +66,10 @@ def inbound_sms():
     if response == "menu":
         resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/mystocks\n/details 'STOCK'\n/price\n/add\n/remove", src=to_number, dst=from_number))
     elif response == "/start":
+        StockScraper.start_scraper(stockScraper, stockObjects)
         resp.add(plivoxml.MessageElement("StockScraper has started. You will be notified if an alert is triggered.", src=to_number, dst=from_number))
     elif response == "/stop":
+        StockScraper.stop_scraper()
         resp.add(plivoxml.MessageElement("StockScraper has ended. Reply 'start' to begin.", src=to_number, dst=from_number))
     elif response == "/mystocks":
         resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
