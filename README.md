@@ -15,7 +15,7 @@ A user can text /price followed by a stock acronym to receive its current price:
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
 # Twilio vs Plivo
-Twilio seems to be more user friendly and the libraries for the API are much cleaner. Plivo is a bit less cute, but more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
+Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
 My choice - Plivo
 
@@ -25,11 +25,9 @@ Transparant - less cute, more transparent/detailed.
 
 Negatives? - can be a bit slower and buggy
 
+**************************************************
 Created by Adam Siwiec.
 
 Email: adam2.siwiec@gmail.com
-
-
-**************************************************
 
 Send me an email with any questions and feel free to clone/improve my code. 
