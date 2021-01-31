@@ -6,12 +6,6 @@ To build on my StockScraper alert system, I implemented functionality that allow
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 ***************************************************
 
-Built using ngrok and flask:
-
-https://dashboard.ngrok.com/get-started/tutorials
-
-https://flask.palletsprojects.com/en/1.1.x/
-
 Text 'Menu' to see all the commands:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
@@ -19,6 +13,12 @@ Text 'Menu' to see all the commands:
 Text /price followed by any stock acronym to receive its current price:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
+
+Built using ngrok and flask:
+
+https://dashboard.ngrok.com/get-started/tutorials
+
+https://flask.palletsprojects.com/en/1.1.x/
 
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
