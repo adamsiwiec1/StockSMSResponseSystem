@@ -122,11 +122,13 @@ def inbound_sms():
                 if stock.acronym not in response:
                     response = response.split(" ", 2)
                     messages.remove_stock_notfound(response[1], from_number)
-                else:
+                elif stock.acronym in response:
                     ack = stock.acronym
                     del stock
                     if len(ack) != 0:
                         messages.remove_stock(ack, from_number)
+                else:
+                    messages.broke_matrix(from_number)
             resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
         else:
             resp.add(plivoxml.MessageElement(f"Please reply with the stock you would like to remove from /mystocks.\n\n Ex: /remove NOK", src=to_number, dst=from_number))

@@ -36,3 +36,12 @@ def remove_stock_notfound(ack, to_number):
         dst=f'{to_number}',
         text=f'{ack} was not found in /stocklibrary'
     )
+
+
+def broke_matrix(to_number):
+    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    message_created = client.messages.create(
+        src='+15709985164',
+        dst=f'{to_number}',
+        text=f'You broke the matrix'
+    )

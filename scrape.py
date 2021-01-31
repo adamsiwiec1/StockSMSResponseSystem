@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from termcolor import colored
 
-
+# Test change
 class StockScraper:
     def __init__(self):
         self.stop = False
