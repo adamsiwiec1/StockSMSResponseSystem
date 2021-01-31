@@ -4,11 +4,11 @@ from plivo import plivoxml
 from dictionary import StockDictionary
 from plivoDir import messages
 from stock import Stock
-from scrape import StockScraper
-import scrape
+from yfin import StockScraper
+import yfin
 
 # Stock List
-stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
+stockObjects = [Stock]
 
 # Flask dev server object
 app = Flask(__name__)
@@ -92,7 +92,7 @@ def inbound_sms():
         stockCount = len(stockObjects)
         if stockCount > 0:
             messages.started_scraper_message(from_number)
-            stocks = stockObjects[1:stockCount]
+            stocks = stockObjects
             StockScraper.start_scraper(stockScraper, stocks, from_number)
             return Response(resp.to_string(), mimetype='application/xml')
         else:
@@ -119,7 +119,7 @@ def inbound_sms():
     elif "/remove" in response:
         if len(response) > 7:
             for stock in stockObjects:
-                if stock.acronym not in response:
+                if stock.ticker not in response:
                     response = response.split(" ", 2)
                     messages.remove_stock_notfound(response[1], from_number)
                 elif stock.acronym in response:
