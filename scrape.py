@@ -40,6 +40,7 @@ class StockScraper:
     def stop_scraper(self):
         self.stop = True
 
+
 def compare_price(stock_price, low, high):
     current_price = float(stock_price)
 
@@ -62,24 +63,12 @@ def pull_stock_info(stock):
         yahoo = f"https://finance.yahoo.com/quote/{stock.acronym}?p={stock.acronym}&.tsrc=fin-srch"
         page = requests.get(yahoo)
         soup = BeautifulSoup(page.content, 'html.parser')
-        # try:  # Scrape html from the webpage
-        #     count = 0
         try:
             data = soup.find(class_="My(6px) Pos(r) smartphone_Mt(6px)").text
             return data
         except AttributeError as e:
             print(stock)
             print(e)
-        #         while count < 4:
-        #             count += 1
-        #             print(colored(f"!!!!Failed to pull {stock.acronym} - Trying again!!!!\n"), "red")
-        #             data = soup.find(class_="My(6px) Pos(r) smartphone_Mt(6px)").text
-        #             if data is not None:
-        #                 count = 4
-        #     return data
-        # except AttributeError or UnboundLocalError:
-        #     print(colored(f"\n|----!!!!FAILED TO PULL DATA FOR {stock.acronym} !!!!----|\n", "red"))
-        #     print(colored("Restarting the program...", "red"))
     except requests.ConnectionError as e:
         print("Connection Error:" + str(e))
     except requests.Timeout as e:
@@ -103,12 +92,8 @@ def get_price(stock_info):
     if 'open' in stock_info:
             info_array = stock_info.rsplit(' ', 8)
 
-    # elif 'open' or 'close' not in stock_info:
-    #     print(colored("Error: Not open or closed?", "red"))
-    #     return "0.00"
-
     # Account for different format when stocks is up/down
-    if plus in info_array[0]:
+    if plus in info_array[0]:  # UnboundLocalError needs to be accounted
         price = info_array[0].split('+')[0]
     elif minus in info_array[0]:
         price = info_array[0].split('-')[0]
@@ -127,6 +112,7 @@ def get_price(stock_info):
     else:
         print("Error")
         return "0.00"
+
 
 def scrape(stocks):  # Needs Cleaned - move outside exceptions into method?
     count = len(stocks)
@@ -158,5 +144,14 @@ def scrape(stocks):  # Needs Cleaned - move outside exceptions into method?
     return stocks
 
 
-
+def scrape_price(ack):
+    yahoo = f"https://finance.yahoo.com/quote/{ack}?p={ack}&.tsrc=fin-srch"
+    page = requests.get(yahoo)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    try:
+        data = soup.find(class_="My(6px) Pos(r) smartphone_Mt(6px)").text
+    except AttributeError:
+        return "Enter a valid stock."
+    price = get_price(data)
+    return f"{ack} {price}"
 

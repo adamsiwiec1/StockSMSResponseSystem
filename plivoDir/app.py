@@ -2,14 +2,18 @@ import plivo
 from flask import Flask, request, make_response, Response
 from plivo import plivoxml
 from dictionary import StockDictionary
+from plivoDir import messages
 from stock import Stock
 from scrape import StockScraper
 import scrape
 
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
+
+# Flask dev server object
 app = Flask(__name__)
 
+# Web Scraper Object - used for 'self' in methods.
 stockScraper = StockScraper()
 
 
@@ -38,28 +42,18 @@ def stock_price(ack):
         return "You broke the matrix. Try again."
 
 
-def get_stock_user(detail):
+def get_input(detail):
     details = detail.split(' ', 2)
     return details[1]
 
 
-def check_forNone(stocks):
+def check_for_none(stocks):
 
     for stock in stocks:
         if stock.acronym is None:
             del stock
 
     return stocks
-
-
-def started_scraper_message(to_number):
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
-    message_created = client.messages.create(
-        src='+15709985164',
-        dst=f'{to_number}',
-        text='StockScraper has started. You will be notified if an alert is triggered.'
-    )
-
 
 
 # Text reply system
@@ -83,13 +77,18 @@ def inbound_sms():
 
     # Help Menu
     if response == "menu":
-        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/mystocks\n/details STOK\n/price\n/add\n/remove", src=to_number, dst=from_number))
+        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/price\n/mystocks\n/details STOK\n/add\n/remove", src=to_number, dst=from_number))
+
+    # Gets a price of any NASDAQ or COLE stock, even ones not in /mystocks
+    elif '/price' in response:
+        ack = get_input(response)
+        messages.send_price(ack, from_number)
 
     # Start Looking for Alerts
     elif response == "/start":
         stockCount = len(stockObjects)
         if stockCount > 0:
-            started_scraper_message(from_number)
+            messages.started_scraper_message(from_number)
             stocks = stockObjects[1:stockCount]
             StockScraper.start_scraper(stockScraper, stocks, from_number)
             return Response(resp.to_string(), mimetype='application/xml')
@@ -107,7 +106,7 @@ def inbound_sms():
 
     # Reply with details of a stock
     elif "/details" in response:
-        resp.add(plivoxml.MessageElement(str(stock_price(get_stock_user(response))), src=to_number, dst=from_number))
+        resp.add(plivoxml.MessageElement(str(stock_price(get_input(response))), src=to_number, dst=from_number))
 
     # Reply with directions on how to add a stock
     elif response == "/add":
