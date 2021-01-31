@@ -6,14 +6,14 @@ To build on my StockScraper alert system, I implemented functionality that allow
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 ***************************************************
 
-If a user texts 'Menu' to the StockSMSResponseSystem:
+Text 'Menu' to see all the commands:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
 
-A user can text /price followed by a stock acronym to receive its current price:
+Text /price followed by any stock acronym to receive its current price:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
-
+***************************************************
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
