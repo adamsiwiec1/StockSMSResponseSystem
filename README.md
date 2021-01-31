@@ -1,6 +1,8 @@
 # StockSMSResponseSystem
 ***************************************************
-Overview: To build on my StockScraper alert system, I implemented functionality that allows the user to control the script using text messages. Throughout the process I familiarized myself with two popular VoIP/SMSoIP, Twilio and Plivo. The program allows the user to add stocks to their alert list, start or stop the alert system, and check
+Overview: 
+
+To build on my StockScraper alert system, I implemented functionality that allows the user to control the script using text messages. Throughout the process I familiarized myself with two popular VoIP/SMSoIP, Twilio and Plivo. The program allows the user to add stocks to their alert list, start or stop the alert system, and check
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 ***************************************************
 
