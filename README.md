@@ -6,6 +6,12 @@ To build on my StockScraper alert system, I implemented functionality that allow
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 ***************************************************
 
+Built using ngrok and flask:
+
+https://dashboard.ngrok.com/get-started/tutorials
+
+https://flask.palletsprojects.com/en/1.1.x/
+
 Text 'Menu' to see all the commands:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
