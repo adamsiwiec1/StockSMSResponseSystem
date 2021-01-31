@@ -11,9 +11,9 @@ How?
 - Data retrieved using yfinance API.
 https://pypi.org/project/yfinance/
 
-- Used Ngrok to forward requests from Plivo to my local Flask server.
-https://dashboard.ngrok.com/get-started/tutorials
-https://flask.palletsprojects.com/en/1.1.x/
+- Used Ngrok to forward requests from Plivo to my local Flask server.<br/>
+https://dashboard.ngrok.com/get-started/tutorials <br/>
+https://flask.palletsprojects.com/en/1.1.x/ 
 
 Instructions:
 1. Run app.py using python.
@@ -41,7 +41,7 @@ Text /details or /price followed by a stock acronym:
 # Twilio vs Plivo
 Twilio's website is user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their Python API library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
-My choice - Plivo<br/>
+**My choice - Plivo**<br/>
 Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.<br/>
 Transparant - less cute, more detailed. <br/>
 Drawback - can be a bit slower and buggy
