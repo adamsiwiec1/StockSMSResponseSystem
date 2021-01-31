@@ -9,6 +9,9 @@ the price of any stock by simply sending a text message. The system either repli
 If a user texts 'Menu' to the StockSMSResponseSystem:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
+
+A user can text /price followed by a stock acronym to receive its current price:
+
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
 # Twilio vs Plivo
