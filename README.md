@@ -33,10 +33,10 @@ Text 'Menu' to see all the commands:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
 
-Text /price followed by any stock acronym to receive its current price:
+Text /details or /price followed by a stock acronym:
 
-![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSmsResponseDetails.png?raw=true)
+![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
@@ -45,7 +45,7 @@ My choice - Plivo
 
 Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.
 
-Transparant - less cute, more transparent/detailed. 
+Transparant - less cute, more detailed. 
 
 Negatives? - can be a bit slower and buggy
 
