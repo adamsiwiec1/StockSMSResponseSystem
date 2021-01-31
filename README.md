@@ -17,11 +17,11 @@ A user can text /price followed by a stock acronym to receive its current price:
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are much cleaner. Plivo is a bit less cute, but more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
-My choice? Plivo
+My choice - Plivo
 
 Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.
 
-Transparant - less cute, but more detailed. 
+Transparant - less cute, more transparent/detailed. 
 
 Negatives? - can be a bit slower and buggy
 
