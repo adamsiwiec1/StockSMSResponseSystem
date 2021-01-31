@@ -17,7 +17,9 @@ Twilio seems to be more user friendly and the libraries for the API are much cle
 My choice? Plivo
 
 Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.
+
 Transparant - less cute, but more detailed. 
+
 Negatives? - can be a bit slower and buggy
 
 Created by Adam Siwiec.
