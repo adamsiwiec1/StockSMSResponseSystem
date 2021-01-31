@@ -39,15 +39,12 @@ Text /details or /price followed by a stock acronym:
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
 # Twilio vs Plivo
-Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
+Twilio's website is user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their Python API library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
-My choice - Plivo
-
-Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.
-
-Transparant - less cute, more detailed. 
-
-Negatives? - can be a bit slower and buggy
+My choice - Plivo<br/>
+Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.<br/>
+Transparant - less cute, more detailed. <br/>
+Drawback - can be a bit slower and buggy
 
 https://www.twilio.com/
 
