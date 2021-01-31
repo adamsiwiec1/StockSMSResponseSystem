@@ -4,7 +4,30 @@ Overview:
 
 To build on my StockScraper alert system, I implemented functionality that allows the user to control the script using text messages. Throughout the process I familiarized myself with two popular VoIP/SMSoIP, Twilio and Plivo. The program allows the user to add stocks to their alert list, start or stop the alert system, and check
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
+
+**currently working mainly with Plivo - use that directory to run the app
+
+How?
+- Data retrieved using yfinance API.
+https://pypi.org/project/yfinance/
+
+- Used Ngrok to forward requests from Plivo to my local Flask server.
+https://dashboard.ngrok.com/get-started/tutorials
+https://flask.palletsprojects.com/en/1.1.x/
+
+Instructions:
+1. Run app.py using python.
+2. Start ngrok and run: <br/>
+ *port = whatever app.py local host is running on*
+  ```
+  ngrok http 'port'
+  ```
+3. Copy your ngrok url and configure Plivo (or Twilio).
+4. You must repeat step 3 every time you restart ngrok.
+5. Assuming app.py is running along with ngrok on the corresponding port, text 'Menu' to your configured Plivo or Twilio phone number.
+
 ***************************************************
+*Examples*
 
 Text 'Menu' to see all the commands:
 
@@ -13,12 +36,6 @@ Text 'Menu' to see all the commands:
 Text /price followed by any stock acronym to receive its current price:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
-
-Built using ngrok and flask:
-
-https://dashboard.ngrok.com/get-started/tutorials
-
-https://flask.palletsprojects.com/en/1.1.x/
 
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
