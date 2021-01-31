@@ -26,6 +26,5 @@ Email: adam2.siwiec@gmail.com
 
 
 **************************************************
-Help:
 
 Send me an email with any questions and feel free to clone/improve my code. 
