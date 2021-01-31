@@ -65,6 +65,9 @@ def inbound_sms():
     response = response.lower()
     print('%s said %s' % (from_number, response))
     print(stockObjects)
+    stockAck = ""
+    stockFloor = ""
+    stockCeiling = ""
 
     # Handle new incoming stock
     if "-" in str(response):
@@ -76,7 +79,7 @@ def inbound_sms():
     resp = plivoxml.ResponseElement()  # Response object for Plivo
 
     # Help Menu
-    if response == "menu":
+    if "menu" in response:
         resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/price STOK\n/mystocks\n/details STOK\n/add\n/remove", src=to_number, dst=from_number))
 
     # Gets a price of any NASDAQ or COLE stock, even ones not in /mystocks
@@ -109,8 +112,24 @@ def inbound_sms():
         resp.add(plivoxml.MessageElement(str(stock_price(get_input(response))), src=to_number, dst=from_number))
 
     # Reply with directions on how to add a stock
-    elif response == "/add":
+    elif "/add" in response:
         resp.add(plivoxml.MessageElement("Please reply with the stock acronym you would like to add followed by its floor/ceiling.\n\nEx: NOK-1.00-4.50", src=to_number, dst=from_number))
+
+    # Remove a stock (or multiple) from /mystocks
+    elif "/remove" in response:
+        if len(response) > 7:
+            for stock in stockObjects:
+                if stock.acronym not in response:
+                    response = response.split(" ", 2)
+                    messages.remove_stock_notfound(response[1], from_number)
+                else:
+                    ack = stock.acronym
+                    del stock
+                    if len(ack) != 0:
+                        messages.remove_stock(ack, from_number)
+            resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
+        else:
+            resp.add(plivoxml.MessageElement(f"Please reply with the stock you would like to remove from /mystocks.\n\n Ex: /remove NOK", src=to_number, dst=from_number))
 
     # Add a stock to /mystocks
     elif stockAck in StockDictionary.NASDAQ or StockDictionary.COLE and stockFloor and stockCeiling:
