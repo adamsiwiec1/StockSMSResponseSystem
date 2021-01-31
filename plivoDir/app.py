@@ -77,7 +77,7 @@ def inbound_sms():
 
     # Help Menu
     if response == "menu":
-        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/price\n/mystocks\n/details STOK\n/add\n/remove", src=to_number, dst=from_number))
+        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/price STOK\n/mystocks\n/details STOK\n/add\n/remove", src=to_number, dst=from_number))
 
     # Gets a price of any NASDAQ or COLE stock, even ones not in /mystocks
     elif '/price' in response:
