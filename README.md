@@ -1,21 +1,27 @@
 # StockSMSResponseSystem
-***************************************************
+
 Overview: 
 
 To build on my StockScraper alert system, I implemented functionality that allows the user to control the script using text messages. Throughout the process I familiarized myself with two popular VoIP/SMSoIP, Twilio and Plivo. The program allows the user to add stocks to their alert list, start or stop the alert system, and check
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 ***************************************************
 
-If a user texts 'Menu' to the StockSMSResponseSystem:
+Text 'Menu' to see all the commands:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
 
-A user can text /price followed by a stock acronym to receive its current price:
+Text /price followed by any stock acronym to receive its current price:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
+Built using ngrok and flask:
+
+https://dashboard.ngrok.com/get-started/tutorials
+
+https://flask.palletsprojects.com/en/1.1.x/
+
 # Twilio vs Plivo
-Twilio seems to be more user friendly and the libraries for the API are much cleaner. Plivo is a bit less cute, but more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
+Twilio seems to be more user friendly and the libraries for the API are cleaner. Plivo is a bit more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
 
 My choice - Plivo
 
@@ -25,11 +31,13 @@ Transparant - less cute, more transparent/detailed.
 
 Negatives? - can be a bit slower and buggy
 
+https://www.twilio.com/
+
+https://www.plivo.com/
+
+**************************************************
 Created by Adam Siwiec.
 
 Email: adam2.siwiec@gmail.com
-
-
-**************************************************
 
 Send me an email with any questions and feel free to clone/improve my code. 
