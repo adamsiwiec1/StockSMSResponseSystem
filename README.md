@@ -9,7 +9,7 @@ the price of any stock by simply sending a text message. The system either repli
 If a user texts 'Menu' to the StockSMSResponseSystem:
 
 ![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponse2.png?raw=true)
-
+![alt text](https://github.com/adamsiwiec1/StockSMSResponseSystem/blob/master/etc/StockSMSResponsePrice.png?raw=true)
 
 # Twilio vs Plivo
 Twilio seems to be more user friendly and the libraries for the API are much cleaner. Plivo is a bit less cute, but more transparent. I feel like I have more control using Plivo, both on their website and with their library. I implemented both a PlivoDir and TwilioDir in this project to outline the difference. 
