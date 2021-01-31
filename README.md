@@ -1,13 +1,13 @@
 # StockSMSResponseSystem
 
-Overview: 
+**Overview:** 
 
 To build on my StockScraper alert system, I implemented functionality that allows the user to control the script using text messages. Throughout the process I familiarized myself with two popular VoIP/SMSoIP, Twilio and Plivo. The program allows the user to add stocks to their alert list, start or stop the alert system, and check
 the price of any stock by simply sending a text message. The system either replies with confirmation or lets the user know they entered something incorrectly. 
 
 **currently working mainly with Plivo - use that directory to run the app
 
-How?
+**Implementation**
 - Data retrieved using yfinance API.
 https://pypi.org/project/yfinance/
 
@@ -44,7 +44,8 @@ Twilio's website is user friendly and the libraries for the API are cleaner. Pli
 **My choice - Plivo**<br/>
 Cheaper - $0.0050/sms w/Plivo vs. 0.0075 w/ Twilio.<br/>
 Transparant - less cute, more detailed. <br/>
-Drawback - can be a bit slower and buggy
+Drawbacks - you need a business/organizational email to register and it <br/>
+can be a bit slower
 
 https://www.twilio.com/
 
