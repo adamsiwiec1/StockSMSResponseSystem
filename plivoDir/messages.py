@@ -12,12 +12,22 @@ def started_scraper_message(to_number):
 
 
 def send_price(ack, to_number):
-    priceMsg = yfin.scrape_price(ack)
+    priceMsg = yfin.get_stock_price(ack)
     client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
         text=f'{priceMsg}'
+    )
+
+
+def send_details(ack, to_number):
+    infoMsg = yfin.get_stock_details(ack)
+    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    message_created = client.messages.create(
+        src='+15709985164',
+        dst=f'{to_number}',
+        text=f'{infoMsg}'
     )
 
 

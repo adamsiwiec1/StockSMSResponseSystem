@@ -8,7 +8,7 @@ from yfin import StockScraper
 import yfin
 
 # Stock List
-stockObjects = [Stock]
+stockObjects = []
 
 # Flask dev server object
 app = Flask(__name__)
@@ -20,7 +20,7 @@ stockScraper = StockScraper()
 def print_stocks():
     string = ""
     for stock in stockObjects:
-        string += str(stock.acronym.upper() + "\n")
+        string += str(stock.ticker.upper() + "\n")
     if len(string) < 4:
         string = "You have not added any stocks. Text /add to append."
     return string
@@ -32,7 +32,7 @@ def stock_price(ack):
         string = "Error"
     elif ack != "ERROR":
         for stock in stockObjects:
-            stocks = [f"{stock.acronym.upper()} {stock.float_price}"
+            stocks = [f"{stock.ticker.upper()} {stock.price}"
                       f"\nFloor:   {stock.floor}"
                       f"\nCeiling: {stock.ceiling}"]
             for stock in range(len(stocks)):
@@ -109,7 +109,8 @@ def inbound_sms():
 
     # Reply with details of a stock
     elif "/details" in response:
-        resp.add(plivoxml.MessageElement(str(stock_price(get_input(response))), src=to_number, dst=from_number))
+        ack = get_input(response)
+        messages.send_details(ack, from_number)
 
     # Reply with directions on how to add a stock
     elif "/add" in response:
@@ -138,7 +139,7 @@ def inbound_sms():
         try:
             float(stockFloor)
             float(stockCeiling)
-            stockObjects.append(Stock("", "", f"{stockAck}", "", 0.0, stockFloor, stockCeiling))
+            stockObjects.append(Stock(f"{stockAck.upper()}", "", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, stockFloor, stockCeiling))
             resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
         except ValueError or Exception as e:
             print(str(e))

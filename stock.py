@@ -3,7 +3,7 @@ import time
 class Stock(object):
 
     def __init__(self, ticker, name, price, ask, bid, daylow, dayhigh, volume, marketOpen, marketClose, floor, ceiling):
-        self.ticker = ticker,
+        self.ticker = ticker
         self.name = name
         self.price = price
         self.ask = ask
