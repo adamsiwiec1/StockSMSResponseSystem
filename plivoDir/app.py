@@ -1,8 +1,10 @@
+import plivo
 from flask import Flask, request, make_response, Response
 from plivo import plivoxml
 from dictionary import StockDictionary
 from stock import Stock
 from scrape import StockScraper
+import scrape
 
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
@@ -10,10 +12,11 @@ app = Flask(__name__)
 
 stockScraper = StockScraper()
 
+
 def print_stocks():
     string = ""
     for stock in stockObjects:
-        string += str(stock.acronym.upper() + f" {stock.price}\n")
+        string += str(stock.acronym.upper() + "\n")
     if len(string) < 4:
         string = "You have not added any stocks. Text /add to append."
     return string
@@ -40,6 +43,25 @@ def get_stock_user(detail):
     return details[1]
 
 
+def check_forNone(stocks):
+
+    for stock in stocks:
+        if stock.acronym is None:
+            del stock
+
+    return stocks
+
+
+def started_scraper_message(to_number):
+    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    message_created = client.messages.create(
+        src='+15709985164',
+        dst=f'{to_number}',
+        text='StockScraper has started. You will be notified if an alert is triggered.'
+    )
+
+
+
 # Text reply system
 @app.route('/sms', methods=['POST'])
 def inbound_sms():
@@ -48,10 +70,7 @@ def inbound_sms():
     response = request.values.get('Text')
     response = response.lower()
     print('%s said %s' % (from_number, response))
-
-    stockAck = ""
-    stockFloor = ""
-    stockCeiling = ""
+    print(stockObjects)
 
     # Handle new incoming stock
     if "-" in str(response):
@@ -60,23 +79,41 @@ def inbound_sms():
         stockFloor = newStock[1]
         stockCeiling = newStock[2]
 
-    resp = plivoxml.ResponseElement()
-    make_response("RESPONSE")
-    # resp = twiml.messaging_response.MessagingResponse()
+    resp = plivoxml.ResponseElement()  # Response object for Plivo
+
+    # Help Menu
     if response == "menu":
-        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/mystocks\n/details 'STOCK'\n/price\n/add\n/remove", src=to_number, dst=from_number))
+        resp.add(plivoxml.MessageElement("StockScraper Commands:\n/start\n/stop\n/mystocks\n/details STOK\n/price\n/add\n/remove", src=to_number, dst=from_number))
+
+    # Start Looking for Alerts
     elif response == "/start":
-        StockScraper.start_scraper(stockScraper, stockObjects)
-        resp.add(plivoxml.MessageElement("StockScraper has started. You will be notified if an alert is triggered.", src=to_number, dst=from_number))
+        stockCount = len(stockObjects)
+        if stockCount > 0:
+            started_scraper_message(from_number)
+            stocks = stockObjects[1:stockCount]
+            StockScraper.start_scraper(stockScraper, stocks, from_number)
+            return Response(resp.to_string(), mimetype='application/xml')
+        else:
+            resp.add(plivoxml.MessageElement("You must add stocks before starting the scraper. Reply with /add.", src=to_number, dst=from_number))
+
+    # Stop Looking for Alerts
     elif response == "/stop":
-        StockScraper.stop_scraper()
-        resp.add(plivoxml.MessageElement("StockScraper has ended. Reply 'start' to begin.", src=to_number, dst=from_number))
+        StockScraper.stop_scraper(stockScraper)
+        resp.add(plivoxml.MessageElement("StockScraper has ended. Reply '/start' to begin.", src=to_number, dst=from_number))
+
+    # Reply with acronyms of all stocks the user has added
     elif response == "/mystocks":
         resp.add(plivoxml.MessageElement(print_stocks(), src=to_number, dst=from_number))
+
+    # Reply with details of a stock
     elif "/details" in response:
         resp.add(plivoxml.MessageElement(str(stock_price(get_stock_user(response))), src=to_number, dst=from_number))
+
+    # Reply with directions on how to add a stock
     elif response == "/add":
         resp.add(plivoxml.MessageElement("Please reply with the stock acronym you would like to add followed by its floor/ceiling.\n\nEx: NOK-1.00-4.50", src=to_number, dst=from_number))
+
+    # Add a stock to /mystocks
     elif stockAck in StockDictionary.NASDAQ or StockDictionary.COLE and stockFloor and stockCeiling:
         try:
             float(stockFloor)
@@ -86,11 +123,18 @@ def inbound_sms():
         except ValueError or Exception as e:
             print(str(e))
             resp.add(plivoxml.MessageElement("You failed to enter a stock correctly. Type /add to try again.", src=to_number, dst=from_number))
+
+    # Exceptions
     elif stockAck and not stockFloor or stockCeiling:
         resp.add(plivoxml.MessageElement("You failed to enter a stock correctly. Type /add to try again.", src=to_number, dst=from_number))
     else:
         resp.add(plivoxml.MessageElement("Unrecognized command. Please type 'menu' for help.", src=to_number, dst=from_number))
+
+    # Print details in console
     print(resp.to_string())
+    print(stockObjects)
+
+    # Return the response that was chosen by the above selection structure to the user
     return Response(resp.to_string(), mimetype='application/xml')
 
 

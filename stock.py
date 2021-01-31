@@ -12,4 +12,16 @@ class Stock(object):
         self.floor = floor
         self.ceiling = ceiling
         self.count = 0
-        self.timer = None
+        self.limitCount = 0
+
+    def alert_count(self):
+        self.count += 1
+
+    def reset_count(self):
+        self.count = 0
+
+    def limit_count(self):
+        self.limitCount += 1
+
+    def reset_limit_count(self):
+        self.limitCount = 0
