@@ -31,6 +31,9 @@ Transparant - less cute, more transparent/detailed.
 
 Negatives? - can be a bit slower and buggy
 
+https://www.twilio.com/
+https://www.plivo.com/
+
 **************************************************
 Created by Adam Siwiec.
 
