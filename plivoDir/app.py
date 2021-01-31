@@ -7,6 +7,12 @@ from stock import Stock
 from scrape import StockScraper
 import scrape
 
+# BEFORE YAHOO API
+
+# I made this copy to show the progress made after transitioning to Yahoo API rather
+# then webscraping yahoo and parsing the html, like I am doing here.
+
+
 # Stock List
 stockObjects = [Stock("", "", "", "", 0.0, 0.0, 0.0)]
 
