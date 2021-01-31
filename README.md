@@ -17,7 +17,7 @@ https://flask.palletsprojects.com/en/1.1.x/
 
 Instructions:
 1. Run app.py using python.
-2. Start ngrok and run: (port = what localhost in app.py is running on)<br/>
+2. Start ngrok and run: <br/>
  *port = whatever app.py local host is running on*
   ```
   ngrok http 'port'
