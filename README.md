@@ -10,20 +10,21 @@ the price of any stock by simply sending a text message. The system either repli
 How?
 - Data retrieved using yfinance API.
 https://pypi.org/project/yfinance/
-- 
-- Used Flask and Ngrok to forward requests from Plivo .
+
+- Used Ngrok to forward requests from Plivo to my local Flask server.
 https://dashboard.ngrok.com/get-started/tutorials
 https://flask.palletsprojects.com/en/1.1.x/
 
 Instructions:
 1. Run app.py using python.
-2. Start ngrok and run:
-  port = whatever local host is running on
+2. Start ngrok and run: (port = what localhost in app.py is running on)
   ```
   ngrok http 'port'
   ```
+ *port = whatever local host is running on* <br>
 3. Copy your ngrok url and configure Plivo (or Twilio).
-4.
+4. You must repeat step 3 every time you restart ngrok.
+5. Assuming app.py is running along with ngrok on the corresponding port, text 'Menu' to your configured Plivo or Twilio phone number.
 
 ***************************************************
 *Examples*
