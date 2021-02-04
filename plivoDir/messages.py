@@ -3,7 +3,7 @@ import yfin
 
 
 def started_scraper_message(to_number):
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
@@ -13,7 +13,7 @@ def started_scraper_message(to_number):
 
 def send_price(ack, to_number):
     priceMsg = yfin.get_stock_price(ack)
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
@@ -23,7 +23,7 @@ def send_price(ack, to_number):
 
 def send_details(ack, to_number):
     infoMsg = yfin.get_stock_details(ack)
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
@@ -32,7 +32,7 @@ def send_details(ack, to_number):
 
 
 def remove_stock(ack, to_number):
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
@@ -40,7 +40,7 @@ def remove_stock(ack, to_number):
     )
 
 def remove_stock_notfound(ack, to_number):
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
@@ -49,7 +49,7 @@ def remove_stock_notfound(ack, to_number):
 
 
 def broke_matrix(to_number):
-    client = plivo.RestClient("MAZJZLYTFIMDDHMJZMYZ", "NWMzZTBiZWFjYTMyYTNkNjFkZTI4MTU5ZDIwNzIx")
+    client = plivo.RestClient("xx", "xx")
     message_created = client.messages.create(
         src='+15709985164',
         dst=f'{to_number}',
